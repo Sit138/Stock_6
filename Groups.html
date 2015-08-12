@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Journal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="displayGroup(2015)">
+    <nav class="menu">
+        <ul>
+            <li><div onclick="displayGroup(2015)">2015</div></li>
+            <li><div onclick="displayGroup(2014)">2014</div></li>
+            <li><div onclick="displayGroup(2013)">2013</div></li>
+            <li><div onclick="displayGroup(2012)">2012</div></li>
+            <li><div onclick="displayGroup(2011)">2011</div></li>
+            <li><div onclick="displayGroup(2010)">2010</div></li>
+            <li><div onclick="displayGroup(2009)">2009</div></li>
+            <li><div onclick="displayGroup(2008)">2008</div></li>
+            <li><div onclick="displayGroup(2007)">2007</div></li>
+            <li><div onclick="displayGroup(2006)">2006</div></li>
+        </ul>
+    </nav>
+<br/>
+    <div id="result"></div>
+<div class="but">
+    <input type="button" value="Добавить группу" onclick="location.href = 'new_Group.html'">
+</div>
+    <script src="group.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="displayInfoOnLoad()">
+<div id="result">
+    <form id="newGroup">
+        <br/>Фамилия<br/>
+        <input type="text" id="fam"><br/>
+        Имя<br/>
+        <input type="text" id="first"><br/>
+        Отчество<br/>
+        <input type="text" id="second"><br/>
+        Группа<br/>
+        <input type="text" id="numGr"><br/>
+        Год Поступления<br/>
+        <input type="number" id="yIn"><br/>
+        Год Выпуска<br/>
+        <input type="number" id="yOut">
+    </form>
+</div>
+<div class="but">
+    <input type="button" value="Сохранить" onclick="saveStudent()">
+    <input type="button" value="Выход" onclick="history.back()">
+</div>
+<script src="student.js"></script>
+<script src="change.js"></script>
+</body>
+</html>

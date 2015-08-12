@@ -1,0 +1,73 @@
+$Arial:Arial, Helvetica, sans-serif;
+$OpenSans:'Open Sans', sans-serif, itallic;
+$textSize:20px;
+@mixin borderRadius($radius){
+	border-radius:$radius;
+	-moz-border-radius:$radius;
+	-webkit-border-radius:$radius;
+}
+
+#result{
+
+	font-family:$OpenSans;
+	font-size:18px;
+	font-style:italic;
+	width:440px;
+	height:400px;
+	.group:hover{
+			border-left: 1px solid;
+			font-family:$OpenSans;
+			font-size:$textSize;
+			cursor: pointer;
+			background-color: cornflowerblue;
+			box-shadow: 0 0 10px rgba(100,0,0,0.9);
+		}
+	#newGroup{
+		text-align:center;
+		input{
+			width:350px;
+			font-family:$OpenSans;
+			font-size:24px;
+			text-align: center;
+			border:2px solid;
+			@include borderRadius(3px);
+		}
+	}
+}
+.menu{
+		width:300px;
+		ul{
+			list-style-type: none;
+			padding: 0;
+			margin: 0 auto;
+			width: 1000px;
+			li{
+				display: block;
+				float: left;
+				padding:0 0.5%;
+				min-height: 15px;
+				border-left: 1px solid;
+				font-family:$OpenSans;
+				font-size:14px;
+			}
+			li:hover{
+				cursor: pointer;
+				background-color: cornflowerblue;
+				box-shadow: 0 0 10px rgba(100,0,0,0.9);
+			}
+		}
+}
+.but{
+	input[type="button"]{
+		border:1px solid;
+		font-family:$OpenSans;
+		font-size:$textSize;
+		font-style:italic;
+		@include borderRadius(3px);
+		
+	}
+}
+
+
+
+	
