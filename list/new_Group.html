@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>New Group</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="result">
+    <fieldset>
+        <form id="newGroup">
+            <div class="field">
+                <div>
+                    <label for="numGr">Группа:</label>
+                    <input type="text" id="numGr" name="numGr">
+                </div>
+            </div>
+            <div class="field">
+                <div>
+                    <label for="yIn">Год поступления:</label>
+                    <input type="number" id="yIn" name="yIn">
+                </div>
+            </div>
+            <div class="field">
+                <div>
+                    <label for="yOut">Год выпуска:</label>
+                    <input type="number" id="yOut" name="yOut">
+                </div>
+            </div>
+        </form>
+    </fieldset>
+</div>
+
+<input type="button" class="but" value="Сохранить" onclick="validateFieldAndSave('newGroup', saveGroup)">
+<input type="button" class="but" value="Выход" onclick="history.back()">
+
+</div>
+<script src="script/reqSQL.js"></script>
+<script src="script/group.js"></script>
+<script src="script/validate.js"></script>
+</body>
+</html>

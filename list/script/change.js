@@ -3,7 +3,7 @@ function displayInfoOnLoad(){
         var info = decodeURIComponent(location.search.substring(1)).split(" ");
         var surn = info[0];
         bd.transaction(function(tx){
-           tx.executeSql("SELECT*FROM Students WHERE surname=\'" + surn+ "\'", [], function(tx, result){
+           tx.executeSql(request.selectFromStudentBySurname + "\'" + surn+ "\'", [], function(tx, result){
                for(var i = 0; i < result.rows.length; i++) {
                    document.getElementById('fam').value = result.rows.item(i)['surname'];
                    document.getElementById('first').value = result.rows.item(i)['name'];
@@ -15,22 +15,33 @@ function displayInfoOnLoad(){
            });
         });
     }
+    else {
+        var group = group = decodeURIComponent(location.search.substring(1));
+        document.getElementById('numGr').value = group;
+        bd.transaction(function(tx){
+           tx.executeSql(request.selectStudentFromGroup + "\'" + group + "\'", [], function(tx, result){
+               for(var i = 0; i < result.rows.length; i++) {
+                   document.getElementById('yIn').value = result.rows.item(i)['yearIn'];
+                   document.getElementById('yOut').value = result.rows.item(i)['yearOut'];
+               }
+           });
+        });
+    }
 }
+
 function saveStudent(){
+    var surname = document.getElementById('fam').value,
+    name = document.getElementById('first').value,
+    secondname = document.getElementById('second').value,
+    num = document.getElementById('numGr').value,
+    yI = +document.getElementById('yIn').value,
+    yO = +document.getElementById('yOut').value;
     if(decodeURIComponent(location.search.substring(1)).match("^\\D*$")){
-        //не содержит цифру, то есть update data
         var info = decodeURIComponent(location.search.substring(1)).split(" ");
         var surn = info[0];
         bd.transaction(function(tx){
-            var surname = document.getElementById('fam').value,
-                name = document.getElementById('first').value,
-                secondname = document.getElementById('second').value,
-                num = document.getElementById('numGr').value,
-                yI = +document.getElementById('yIn').value,
-                yO = +document.getElementById('yOut').value;
-            tx.executeSql("DELETE FROM Students WHERE surname LIKE \'" + surn + "\'");
-            tx.executeSql("INSERT INTO Students (surname, name, secondname, num, yI, yO) values(?, ?, ?, ?, ?, ?)",
-                [surname, name, secondname, num, yI, yO], null, null);
+            tx.executeSql(request.deleteDataFromTab + "\'" + surn + "\'");
+            tx.executeSql(request.insertStudent, [surname, name, secondname, num, yI, yO], null, null);
         });
         alert("Сохранено...");
     }
@@ -39,16 +50,9 @@ function saveStudent(){
             alert("Ошибка ввода");
         }
         else{
-            var surname = document.getElementById('fam').value,
-                name = document.getElementById('first').value,
-                secondname = document.getElementById('second').value,
-                num = document.getElementById('numGr').value,
-                yI = +document.getElementById('yIn').value,
-                yO = +document.getElementById('yOut').value;
             bd.transaction(function(tx){
-                tx.executeSql("CREATE TABLE IF NOT EXISTS Students(surname, name, secondname, num, yI, yO)");
-                tx.executeSql("INSERT INTO Students (surname, name, secondname, num, yI, yO) values(?, ?, ?, ?, ?, ?)",
-                    [surname, name, secondname, num, yI, yO], null, null);
+                tx.executeSql(request.createTabStudent);
+                tx.executeSql(request.insertStudent, [surname, name, secondname, num, yI, yO], null, null);
                 document.getElementById('fam').value = "";
                 document.getElementById('first').value = "";
                 document.getElementById('second').value = "";

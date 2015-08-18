@@ -1,6 +1,3 @@
-/**
- * Created by Alex on 10.08.2015.
- */
 var bd = openDatabase("Journal", '0.1', 'Journal students', 20000);
 if(!bd) {
     alert("Failed to connect to database");
@@ -25,7 +22,7 @@ function showYear(yI, yO){
 }
 function getYear(){
     bd.transaction(function(tx){
-       tx.executeSql("SELECT*FROM Groups WHERE number LIKE" + "\'" + group + "\'", [], function(tx, result){
+       tx.executeSql(request.selectStudentFromGroup + "\'" + group + "\'", [], function(tx, result){
            //console.log(result.rows.item(0)['yearIn']);
            showYear(result.rows.item(0)['yearIn'], result.rows.item(0)['yearOut']);
            displayStudents(result.rows.item(0)['yearIn']);
@@ -34,7 +31,7 @@ function getYear(){
 }
 function displayStudents(year){
     bd.transaction(function(tx){
-        tx.executeSql("SELECT * FROM Students WHERE num LIKE " + "\'" + group + "\'" + " AND yI <= " + year +
+        tx.executeSql( request.selectFromStudForGroup + "\'" + group + "\'" + " AND yI <= " + year +
                         " AND yO >= " + year, [], function(tx, result){
             var mainDiv = document.getElementById('result');
             mainDiv.innerHTML = "";
@@ -54,11 +51,11 @@ function changeStudent(text){
 }
 function d(){
     bd.transaction(function(tx){
-       tx.executeSql("DROP TABLE Students");
+       tx.executeSql(request.deleteTab);
     });
 }
 function deleteRow(){
     bd.transaction(function(tx){
-        tx.executeSql("DELETE FROM Students WHERE surname LIKE \'Ремонтоса\'");
+        tx.executeSql(request.deleteDataFromTab + "\'Ремонтоса\'");
     });
 }

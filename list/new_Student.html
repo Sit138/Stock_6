@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="displayInfoOnLoad()">
+
+<div id="result">
+    <fieldset>
+    <form id="newStudent">
+        <div class="field">
+            <div>
+                <label for="fam">Фамилия</label>
+                <input type="text" id="fam" name="fam">
+            </div>
+        </div>
+        <div class="field">
+            <div>
+                <label for="first">Имя</label><br/>
+                <input type="text" id="first" name="first">
+            </div>
+        </div>
+        <div class="field">
+            <div>
+                <label for="second">Отчество:</label>
+                <input type="text" id="second" name="second">
+            </div>
+        </div>
+        <div class="field">
+            <div>
+                <label for="numGr">Группа:</label>
+                <input type="text" id="numGr" name="numGr">
+            </div>
+        </div>
+        <div class="field">
+            <div>
+                <label for="yIn">Год поступления:</label>
+                <input type="number" id="yIn" name="yIn">
+            </div>
+        </div>
+        <div class="field">
+            <div>
+                <label for="yOut">Год выпуска:</label>
+                <input type="number" id="yOut" name="yOut">
+            </div>
+        </div>
+    </form>
+    </fieldset>
+</div>
+
+<input type="button" class="but" value="Сохранить" onclick="validateFieldAndSave('newStudent', saveStudent)">
+<input type="button" class="but" value="Выход" onclick="history.back()">
+</div>
+<script src="script/reqSQL.js"></script>
+<script src="script/student.js"></script>
+<script src="script/change.js"></script>
+<script src="script/validate.js"></script>
+</body>
+</html>

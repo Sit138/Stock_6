@@ -28,7 +28,7 @@ function displayGroup(year){
     });
 }
 function displayStudents(gr){
-    document.location.href = "list/students_List.html?"+gr;
+    document.location.href = "students_List.html?"+gr;
 }
 function showYear(){
     var ul = document.getElementById('navYear');

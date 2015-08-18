@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Journal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="displayGroup(new Date().getFullYear())">
+    <nav class="menu">
+        <ul id="navYear">
+
+        </ul>
+    </nav>
+<br/>
+    <div id="result"></div>
+
+    <input type="button" class="but" value="Добавить группу" onclick="location.href = 'list/new_Group.html'">
+
+    <script src="reqSQL.js"></script>
+    <script src="group.js"></script>
+    <script>showYear();</script>
+</body>
+</html>
