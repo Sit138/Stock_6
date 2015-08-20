@@ -5,7 +5,7 @@
     <title>New Group</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="loadYearNewGroup()">
 <div id="result">
     <fieldset>
         <form id="newGroup">
@@ -18,13 +18,14 @@
             <div class="field">
                 <div>
                     <label for="yIn">Год поступления:</label>
-                    <input type="number" id="yIn" name="yIn">
+                    <select id="yIn" onchange="clickYearIn(this.options[this.selectedIndex].value)" name="yIn"></select>
                 </div>
             </div>
             <div class="field">
                 <div>
                     <label for="yOut">Год выпуска:</label>
-                    <input type="number" id="yOut" name="yOut">
+                    <select id="yOut" name="yOut">
+                    </select>
                 </div>
             </div>
         </form>

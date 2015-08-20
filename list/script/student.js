@@ -22,7 +22,8 @@ function showYear(yI, yO){
 }
 function getYear(){
     bd.transaction(function(tx){
-       tx.executeSql(request.selectStudentFromGroup + "\'" + group + "\'", [], function(tx, result){
+        var str = request.selectStudentFromGroup.replace(/\?/g, group);
+       tx.executeSql(str, [], function(tx, result){
            //console.log(result.rows.item(0)['yearIn']);
            showYear(result.rows.item(0)['yearIn'], result.rows.item(0)['yearOut']);
            displayStudents(result.rows.item(0)['yearIn']);
@@ -31,21 +32,28 @@ function getYear(){
 }
 function displayStudents(year){
     bd.transaction(function(tx){
-        tx.executeSql( request.selectFromStudForGroup + "\'" + group + "\'" + " AND yI <= " + year +
-                        " AND yO >= " + year, [], function(tx, result){
-            var mainDiv = document.getElementById('result');
-            mainDiv.innerHTML = "";
-            for(var i = 0; i < result.rows.length; i++) {
-                //console.log(result.rows.item(i)['number'], result.rows.item(i)['yearIn']);
-                var student = document.createElement('div');
-                student.innerHTML = result.rows.item(i)['surname'] + " " + result.rows.item(i)['name'] + " " + result.rows.item(i)['secondname'];
-                student.className = "group";
-                student.id = "st"+i;
-                student.onclick = function(){ changeStudent(this.textContent) };
-                mainDiv.appendChild(student);
-            }},null);
+        var str = request.selectFromStudForGroup.replace(new RegExp('group', 'g'), group);
+        var sqlstr = str.replace(/year/g, year);
+        tx.executeSql(sqlstr, [], addDivWithGroup(),null);
     });
 }
+
+function addDivWithGroup(){
+    return function(tx, result){
+        var mainDiv = document.getElementById('result');
+        mainDiv.innerHTML = "";
+        for(var i = 0; i < result.rows.length; i++) {
+            //console.log(result.rows.item(i)['number'], result.rows.item(i)['yearIn']);
+            var student = document.createElement('div');
+            student.innerHTML = result.rows.item(i)['surname'] + " " + result.rows.item(i)['name'] + " " + result.rows.item(i)['secondname'];
+            student.className = "group";
+            student.id = "st"+i;
+            student.onclick = function(){ changeStudent(this.textContent) };
+            mainDiv.appendChild(student);
+        }
+    }
+}
+
 function changeStudent(text){
     addStudent(text);
 }

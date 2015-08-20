@@ -31,19 +31,19 @@
         <div class="field">
             <div>
                 <label for="numGr">Группа:</label>
-                <input type="text" id="numGr" name="numGr">
+                <input type="text" id="numGr" name="numGr" readonly>
             </div>
         </div>
         <div class="field">
             <div>
                 <label for="yIn">Год поступления:</label>
-                <input type="number" id="yIn" name="yIn">
+                <select id="yIn" name="yIn" onchange="clickYearInNewStudent(this.options[this.selectedIndex].value)"></select>
             </div>
         </div>
         <div class="field">
             <div>
                 <label for="yOut">Год выпуска:</label>
-                <input type="number" id="yOut" name="yOut">
+                <select id="yOut" name="yOut"></select>
             </div>
         </div>
     </form>

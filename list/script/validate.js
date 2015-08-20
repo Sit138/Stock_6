@@ -2,7 +2,7 @@ function validateFieldAndSave(id, func){
     var form = document.getElementById(id);
     var elem = form.elements,
         count = 0, i = 0,
-        regNum = /\d/,
+        regNum = /^[1-9][0-9]{3}$/,
         regName = /^[А-ЯЁ][а-яё]*$/,
         regGr = /^[а-яА-ЯёЁa-zA-Z0-9]+$/;
 
@@ -44,6 +44,10 @@ function validateFieldAndSave(id, func){
 
 function showError(container) {
     container.className = 'error';
+    var msgElem = document.createElement('span');
+    msgElem.className = "error";
+    msgElem.innerHTML = "*";
+    container.appendChild(msgElem);
 }
 
 function resetError(container) {
