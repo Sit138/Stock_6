@@ -1,4 +1,5 @@
 var request = {
+    selectData: "SELECT*FROM Groups",
     createTabGroup: "CREATE TABLE IF NOT EXISTS Groups(number, yearIn, yearOut)",//create table Group
     insertGroup: "INSERT INTO Groups (number, yearIn, yearOut) values(?, ?, ?)",
     createTabStudent: "CREATE TABLE IF NOT EXISTS Students(surname, name, secondname, num, yI, yO)",
@@ -7,6 +8,6 @@ var request = {
     selectFromStudForGroup: "SELECT * FROM Students WHERE num LIKE \'group\' AND yI <= year AND yO >= year",
     selectFromStudentBySurname: "SELECT*FROM Students WHERE surname=\'?\'",
     deleteTab: "DROP TABLE Students",
-    deleteDataFromTab: "DELETE FROM Students WHERE surname LIKE\'?\'",
+    deleteDataFromTab: "DELETE FROM Groups WHERE number LIKE",
     selectBetweenYears: "SELECT * FROM Groups WHERE yearIn <= ? AND yearOut >= ?"
 };

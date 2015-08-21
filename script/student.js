@@ -24,7 +24,6 @@ function getYear(){
     bd.transaction(function(tx){
         var str = request.selectStudentFromGroup.replace(/\?/g, group);
        tx.executeSql(str, [], function(tx, result){
-           //console.log(result.rows.item(0)['yearIn']);
            showYear(result.rows.item(0)['yearIn'], result.rows.item(0)['yearOut']);
            displayStudents(result.rows.item(0)['yearIn']);
        });
@@ -42,15 +41,20 @@ function addDivWithGroup(){
     return function(tx, result){
         var mainDiv = document.getElementById('result');
         mainDiv.innerHTML = "";
+        var arr = [];
         for(var i = 0; i < result.rows.length; i++) {
-            //console.log(result.rows.item(i)['number'], result.rows.item(i)['yearIn']);
+            arr[i] = result.rows.item(i)['surname'] + " " + result.rows.item(i)['name'] + " " + result.rows.item(i)['secondname'];
+        }
+        arr.sort();
+        for(i = 0; i < arr.length; i++){
             var student = document.createElement('div');
-            student.innerHTML = result.rows.item(i)['surname'] + " " + result.rows.item(i)['name'] + " " + result.rows.item(i)['secondname'];
+            student.innerHTML = arr[i];//result.rows.item(i)['surname'] + " " + result.rows.item(i)['name'] + " " + result.rows.item(i)['secondname'];
             student.className = "group";
             student.id = "st"+i;
             student.onclick = function(){ changeStudent(this.textContent) };
             mainDiv.appendChild(student);
         }
+
     }
 }
 
@@ -62,8 +66,10 @@ function d(){
        tx.executeSql(request.deleteTab);
     });
 }
+
 function deleteRow(){
     bd.transaction(function(tx){
-        tx.executeSql(request.deleteDataFromTab + "\'Ремонтоса\'");
+        tx.executeSql(request.deleteDataFromTab + "\'123\'");
     });
 }
+deleteRow();

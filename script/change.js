@@ -1,14 +1,14 @@
+var yI = document.getElementById('yIn');
+var yO = document.getElementById('yOut');
+
 function displayInfoOnLoad(){
     if(decodeURIComponent(location.search.substring(1)).match("^\\D*$")){
         //CHANGE STUDENT
         var info = decodeURIComponent(location.search.substring(1)).split(" ");
         var surn = info[0];
-            //name = info[1],
-            //second = info[2];
         bd.transaction(function(tx){
             var str = request.selectFromStudentBySurname.replace(/\?/g, surn);
            tx.executeSql(str, [], displayInfoStudent());
-            //
         });
     }
     else {
@@ -46,8 +46,6 @@ function fillFieldYear(){
 }
 
 function fillYear(yearIn, yearOut){
-    var yI = document.getElementById('yIn');
-    var yO = document.getElementById('yOut');
     for(i = yearIn; i <= yearOut; i++){
         var optYearIn = document.createElement('option');
         var optYearOut = document.createElement('option');
@@ -65,8 +63,6 @@ function fillYear(yearIn, yearOut){
 }
 
 function clickYearInNewStudent(year){
-    var yI = document.getElementById('yIn');
-    var yO = document.getElementById('yOut');
     yO.innerHTML = "";
     var len = yI.length;
     var yearMax = yI.options[len-1].value;
