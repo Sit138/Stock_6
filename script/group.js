@@ -1,7 +1,16 @@
-var bd = openDatabase("Jour", '0.1', 'Journal students', 20000);
+var bd = openDatabase("Jo", '0.1', 'Journal student', 20000);
 if(!bd) {
     alert("Failed to connect to database");
 }
+
+function addTab(){
+    bd.transaction(function(tx){
+        tx.executeSql(request.createTabGroup);
+        tx.executeSql(request.createTabStudent);
+    });
+}
+
+addTab();
 
 function saveGroup() {
     uniqGroup();
@@ -37,7 +46,7 @@ function retTrue(){
 function save(){
     var data = getData();
     bd.transaction(function(tx){
-        tx.executeSql(request.createTabGroup);
+        tx.executeSql("CREATE TABLE IF NOT EXISTS Groups(number, yearIn, yearOut)");
         tx.executeSql(request.insertGroup, [data.number, data.yearIn, data.yearOut], null, null);
         });
 }
