@@ -28,10 +28,17 @@ function displayInfoStudent(){
             document.getElementById('first').value = result.rows.item(i)['name'];
             document.getElementById('second').value = result.rows.item(i)['secondname'];
             document.getElementById('numGr').value = result.rows.item(i)['num'];
-            var yearIn = result.rows.item(i)['yI'];
-            var yearOut = result.rows.item(i)['yO'];
+            var gr = result.rows.item(i)['num'];
         }
-        fillYear(yearIn, yearOut);
+        bd.transaction(function(tx){
+            tx.executeSql(request.selectDataForGr + "\'"+gr+"\'", [], function(tx, result){
+                for(var i = 0; i < result.rows.length; i++){
+                    yearIn = result.rows.item(i)['yearIn'];
+                    yearOut = result.rows.item(i)['yearOut'];
+                }
+                fillYear(yearIn, yearOut);
+            });
+        });
     }
 }
 
@@ -76,6 +83,10 @@ function clickYearInNewStudent(year){
     }
 }
 
+function clickYearOutNewStudent(year){
+    yI.onchange = null;
+}
+
 function saveStudent(){
     var surname = document.getElementById('fam').value,
     name = document.getElementById('first').value,
@@ -104,9 +115,6 @@ function saveStudent(){
                 document.getElementById('fam').value = "";
                 document.getElementById('first').value = "";
                 document.getElementById('second').value = "";
-                document.getElementById('numGr').value = "";
-                document.getElementById('yIn').value = "";
-                document.getElementById('yOut').value = "";
             });
             alert("Сохранено...");
         }

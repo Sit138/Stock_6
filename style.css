@@ -7,13 +7,14 @@
 .field {
   clear: both; }
 
-#result {
+#result, #year {
   font-family: "Open Sans", sans-serif, itallic;
   font-size: 18px;
   font-style: italic;
   width: 440px;
-  height: 400px; }
-  #result .group:hover {
+  height: 400px;
+  overflow-y:scroll;}
+  #result .group:hover, #year .group:hover {
     border-left: 1px solid;
     font-family: "Open Sans", sans-serif, itallic;
     font-size: 20px;

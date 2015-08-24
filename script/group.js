@@ -9,23 +9,23 @@ function saveGroup() {
 
 function uniqGroup(){
     bd.transaction(function(tx){
-        tx.executeSql(request.selectData, [], f(retTrue, save));
+        tx.executeSql(request.selectData, [], checkUniqGroup(retTrue, save));
     });
 }
 
-function f(callback, callback2){
+function checkUniqGroup(busyCB, saveCB){
     return function (tx, result){
         var number = document.getElementById('numGr').value;
         var count = 0;
         for(var i = 0; i < result.rows.length; i++) {
             if(result.rows.item(i)['number'] == number){
                 count++;
-                callback();
+                busyCB();
                 break;
             }
         }
         if(count == 0){
-            callback2();
+            saveCB();
         }
     };
 }
@@ -55,10 +55,39 @@ function getData(){
 }
 
 function displayGroup(year){
-    bd.transaction(function(tx){
-        var str = request.selectBetweenYears.replace(/\?/g,   year);//"SELECT * FROM Groups WHERE yearIn <= " + year + " AND yearOut >= " + year
-        tx.executeSql(str, [], addGroupAndDisplay(),null);
-    });
+    if(year == 0){
+        bd.transaction(function(tx){
+            tx.executeSql(request.selectData, [], addAllGroupAndDisplay(),null);
+        });
+    }
+    else{
+        bd.transaction(function(tx){
+            var str = request.selectBetweenYears.replace(/\?/g,   year);//"SELECT * FROM Groups WHERE yearIn <= " + year + " AND yearOut >= " + year
+            tx.executeSql(str, [], addGroupAndDisplay(),null);
+        });
+    }
+}
+
+function addAllGroupAndDisplay(){
+    return function (tx, result) {
+        var arr = [];
+        var mainDiv = document.getElementById('result');
+        mainDiv.innerHTML = "";
+        for (var i = 0; i < result.rows.length; i++) {
+            arr[i] = result.rows.item(i)['number'];
+        }
+        var res = sortGroup(arr);
+        for(i = 0; i < res.length; i++){
+            var group = document.createElement('div');
+            group.innerHTML = res[i];
+            group.className = "group";
+            group.id = "gr" + i;
+            group.onclick = function () {
+                displayStudentsForAll(this.textContent)
+            };
+            mainDiv.appendChild(group);
+        }
+    }
 }
 
 function addGroupAndDisplay() {
@@ -67,10 +96,7 @@ function addGroupAndDisplay() {
         var mainDiv = document.getElementById('result');
         mainDiv.innerHTML = "";
         for (var i = 0; i < result.rows.length; i++) {
-            console.log(result.rows.item(i)['number'], result.rows.item(i)['yearIn'], result.rows.item(i)['yearOut']);
-
             arr[i] = result.rows.item(i)['number'];
-
         }
         var res = sortGroup(arr);
         for(i = 0; i < res.length; i++){
@@ -89,40 +115,41 @@ function addGroupAndDisplay() {
 function sortGroup(arr){
     var rg = /(\d*)([A-Za-zА-Яа-я_]*)/i;
     var result = [];
-    for(var i = 0; i < arr.length; i++){
+    var i;
+    for(i = 0; i < arr.length; i++){
         result[i] = rg.exec(arr[i]);
     }
-    var arr0 = [];
+    var num = [];
     for(i = 0; i < result.length; i++){
         if(result[i][2] == "" && result[i].input != ""){
-            arr0.push(result[i].input);
+            num.push(result[i].input);
             result.splice(i, 1);
             i--;
         }
     }
-    arr0.sort(onData);
-    arr0.sort(onLength);
+    num.sort(onData);
+    num.sort(onLength);
     var pgIng = /[A-Za-z]/;
-    var arr1 = [];
+    var eng = [];
     for(i = 0; i < result.length; i++){
         if(!isFinite(result[i][2]) && pgIng.test(result[i][2])){
-            arr1.push(result[i].input);
+            eng.push(result[i].input);
             result.splice(i, 1);
             i--;
         }
     }
-    arr1.sort(onLength);
+    eng.sort(onLength);
     var pgRus = /[А-Яа-я]/;
-    var arr2 = [];
+    var rus = [];
     for(i = 0; i < result.length; i++){
         if(!isFinite(result[i][2]) && pgRus.test(result[i][2])){
-            arr2.push(result[i].input);
+            rus.push(result[i].input);
             result.splice(i, 1);
             i--;
         }
     }
-    arr2.sort(onLength);
-    var res = arr0.concat(arr1, arr2);
+    rus.sort(onLength);
+    var res = num.concat(eng, rus);
     console.log(res);
     return res;
 }
@@ -142,7 +169,10 @@ function onLength(a, b){
 }
 
 function displayStudents(gr){
-    document.location.href = "list/students_List.html?"+gr;
+        document.location.href = "list/students_List.html?"+gr;
+}
+function displayStudentsForAll(gr){
+    document.location.href = "students_List.html?"+gr;
 }
 function showYear(){
     var ul = document.getElementById('navYear');
