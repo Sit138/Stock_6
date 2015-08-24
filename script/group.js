@@ -1,4 +1,4 @@
-var bd = openDatabase("Journal", '0.1', 'Journal students', 20000);
+var bd = openDatabase("Jour", '0.1', 'Journal students', 20000);
 if(!bd) {
     alert("Failed to connect to database");
 }

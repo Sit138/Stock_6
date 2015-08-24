@@ -53,6 +53,7 @@ function fillFieldYear(){
 }
 
 function fillYear(yearIn, yearOut){
+    var i;
     for(i = yearIn; i <= yearOut; i++){
         var optYearIn = document.createElement('option');
         var optYearOut = document.createElement('option');

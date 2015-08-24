@@ -1,4 +1,4 @@
-var bd = openDatabase("Journal", '0.1', 'Journal students', 20000);
+var bd = openDatabase("Jour", '0.1', 'Journal students', 20000);
 if(!bd) {
     alert("Failed to connect to database");
 }
@@ -11,7 +11,8 @@ function addStudent(text){
 }
 function showYear(yI, yO){
     var ul = document.getElementById('navYear');
-    for(var i = yI; i <= yO; i++){
+    var i;
+    for(i = yI; i <= yO; i++){
         var li = document.createElement('li');
         var div = document.createElement('div');
         div.innerHTML = i;
@@ -41,8 +42,8 @@ function addDivWithGroup(){
     return function(tx, result){
         var mainDiv = document.getElementById('result');
         mainDiv.innerHTML = "";
-        var arr = [];
-        for(var i = 0; i < result.rows.length; i++) {
+        var arr = [], i;
+        for(i = 0; i < result.rows.length; i++) {
             arr[i] = result.rows.item(i)['surname'] + " " + result.rows.item(i)['name'] + " " + result.rows.item(i)['secondname'];
         }
         arr.sort();
