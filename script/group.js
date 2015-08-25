@@ -1,4 +1,4 @@
-var bd = openDatabase("Jo", '0.1', 'Journal student', 20000);
+var bd = openDatabase("Test", '0.1', 'Journal student', 20000);
 if(!bd) {
     alert("Failed to connect to database");
 }
@@ -80,15 +80,27 @@ function displayGroup(year){
 function addAllGroupAndDisplay(){
     return function (tx, result) {
         var arr = [];
+        var year = [];
         var mainDiv = document.getElementById('result');
         mainDiv.innerHTML = "";
         for (var i = 0; i < result.rows.length; i++) {
             arr[i] = result.rows.item(i)['number'];
+            year[i] = " " + result.rows.item(i)['yearIn'] + "-" + result.rows.item(i)['yearOut'];
         }
-        var res = sortGroup(arr);
-        for(i = 0; i < res.length; i++){
+
+        var arrText = [];
+        var arrYear = [];
+        for(i = 0; i < arr.length; i++){
+            var text = arr[i] + " ( г." + year[i] + " )";
+            arrText[i] = text;
+            var start = text.indexOf(".") + 1;
+            //alert(text.slice(start, text.indexOf("-")));
+            arrYear[i] = text.slice(start, text.indexOf("-"));
+        }
+
+        for(i = 0; i < arrText.length; i++){
             var group = document.createElement('div');
-            group.innerHTML = res[i];
+            group.innerHTML = arrText[i];
             group.className = "group";
             group.id = "gr" + i;
             group.onclick = function () {
@@ -181,6 +193,7 @@ function displayStudents(gr){
         document.location.href = "list/students_List.html?"+gr;
 }
 function displayStudentsForAll(gr){
+    gr = gr.slice(0, gr.indexOf(" "));
     document.location.href = "students_List.html?"+gr;
 }
 function showYear(){

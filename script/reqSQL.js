@@ -9,6 +9,6 @@ var request = {
     selectFromStudForGroup: "SELECT * FROM Students WHERE num LIKE \'group\' AND yI <= year AND yO >= year",
     selectFromStudentBySurname: "SELECT*FROM Students WHERE surname=\'?\'",
     deleteTab: "DROP TABLE Students",
-    deleteDataFromTab: "DELETE FROM Groups WHERE number LIKE",
+    deleteDataFromTab: "DELETE FROM Students WHERE surname LIKE\'?\'",
     selectBetweenYears: "SELECT * FROM Groups WHERE yearIn <= ? AND yearOut >= ?"
 };

@@ -1,4 +1,4 @@
-var bd = openDatabase("Jo", '0.1', 'Journal student', 20000);
+var bd = openDatabase("Test", '0.1', 'Journal student', 20000);
 if(!bd) {
     alert("Failed to connect to database");
 }
@@ -9,6 +9,9 @@ group = decodeURIComponent(location.search.substring(1));
 function addStudent(text){
     document.location.href = 'new_Student.html?'+text;
 }
+
+
+
 function showYear(yI, yO){
     var ul = document.getElementById('navYear');
     var i;

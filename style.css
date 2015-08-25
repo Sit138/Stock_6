@@ -7,20 +7,29 @@
 .field {
   clear: both; }
 
-#result, #year {
+#result {
   font-family: "Open Sans", sans-serif, itallic;
   font-size: 18px;
   font-style: italic;
   width: 440px;
   height: 400px;
   overflow-y:scroll;}
-  #result .group:hover, #year .group:hover {
+  #result .group:hover {
     border-left: 1px solid;
     font-family: "Open Sans", sans-serif, itallic;
     font-size: 20px;
     cursor: pointer;
     background-color: cornflowerblue;
     box-shadow: 0 0 10px rgba(100, 0, 0, 0.9); }
+#result .group1:hover, {
+  border-left: 1px solid;
+  font-family: "Open Sans", sans-serif, itallic;
+  font-size: 20px;
+  width: 100px;
+  cursor: pointer;
+  background-color: cornflowerblue;
+  box-shadow: 0 0 10px rgba(100, 0, 0, 0.9); }
+
   #result #newGroup, #result #newStudent {
     text-align: center; }
     #result #newGroup input, #result #newStudent input {
