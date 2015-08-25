@@ -83,7 +83,6 @@ function clickYearInNewStudent(year){
         yO.appendChild(optYearOut);
     }
 }
-
 function clickYearOutNewStudent(year){
     yI.onchange = null;
 }

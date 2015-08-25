@@ -1,3 +1,4 @@
+
 var request = {
     selectData: "SELECT*FROM Groups",
     selectDataForGr: "SELECT*FROM Groups WHERE number LIKE",

@@ -9,9 +9,6 @@ group = decodeURIComponent(location.search.substring(1));
 function addStudent(text){
     document.location.href = 'new_Student.html?'+text;
 }
-
-
-
 function showYear(yI, yO){
     var ul = document.getElementById('navYear');
     var i;

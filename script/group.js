@@ -110,7 +110,6 @@ function addAllGroupAndDisplay(){
         }
     }
 }
-
 function addGroupAndDisplay() {
     return function (tx, result) {
         var arr = [];

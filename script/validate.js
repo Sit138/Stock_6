@@ -23,7 +23,6 @@ function validateFieldAndSave(id, func){
                     'yIn': regNum,
                     'yOut': regNum
                 };
-
         }
     console.log(form.elements.length);
     for (i ; key.length > i; i++) {
