@@ -4,7 +4,7 @@ function validateFieldAndSave(id, func){
         count = 0, i = 0,
         regNum = /^[1-9][0-9]{3}$/,
         regName = /^[А-ЯЁ][а-яё]*$/,
-        regGr = /^[а-яА-ЯёЁa-zA-Z0-9]+$/;
+        regGr = /^[0-9]{1}[а-яА-ЯёЁa-zA-Z0-9]+$/;
         if(id == 'newStudent'){
             var key = ['fam', 'first', 'second', 'numGr', 'yIn', 'yOut'],//ключи для регулярок
                 regExp = {//объект, котоый хранит все наши регулярки
