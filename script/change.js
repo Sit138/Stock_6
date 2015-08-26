@@ -2,9 +2,15 @@ var yI = document.getElementById('yIn');
 var yO = document.getElementById('yOut');
 
 function displayInfoOnLoad(){
-    if(decodeURIComponent(location.search.substring(1)).match("^\\D*$")){
+
+    var inf = decodeURIComponent(location.search.substring(1));
+    //alert(inf);
+    var ch = inf.split('$');
+    //alert(ch);
+    if(ch[0] == 'ch'){
         //CHANGE STUDENT
-        var info = decodeURIComponent(location.search.substring(1)).split(" ");
+        //var info = decodeURIComponent(location.search.substring(1)).split(" ");
+        var info = ch[1].split(" ");
         var surn = info[0];
         bd.transaction(function(tx){
             var str = request.selectFromStudentBySurname.replace(/\?/g, surn);
@@ -12,12 +18,14 @@ function displayInfoOnLoad(){
         });
     }
     else {
-        var group = group = decodeURIComponent(location.search.substring(1));
+        //var group = decodeURIComponent(location.search.substring(1));
+        var group = ch[1];
         document.getElementById('numGr').value = group;
         bd.transaction(function(tx){
             var str = request.selectStudentFromGroup.replace(/\?/g, group);
             tx.executeSql(str, [], fillFieldYear());
         });
+
     }
 }
 
@@ -94,8 +102,15 @@ function saveStudent(){
     num = document.getElementById('numGr').value,
     yI = +document.getElementById('yIn').value,
     yO = +document.getElementById('yOut').value;
-    if(decodeURIComponent(location.search.substring(1)).match("^\\D*$")){
-        var info = decodeURIComponent(location.search.substring(1)).split(" ");
+
+    var inf = decodeURIComponent(location.search.substring(1));
+    //alert(inf);
+
+    var ch = inf.split('$');
+    //alert(ch);
+
+    if(ch[0] == 'ch'){
+        var info = ch[1].split(" ");
         var surn = info[0];
         bd.transaction(function(tx){
             var str = request.deleteDataFromTab.replace(/\?/g, surn);

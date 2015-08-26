@@ -1,4 +1,4 @@
-var bd = openDatabase("Ter", '0.1', 'Journal student', 20000);
+var bd = openDatabase("T", '0.1', 'Journal student', 20000);
 if(!bd) {
     alert("Failed to connect to database");
 }
@@ -52,7 +52,7 @@ function addDivWithGroup(){
             student.innerHTML = arr[i];//result.rows.item(i)['surname'] + " " + result.rows.item(i)['name'] + " " + result.rows.item(i)['secondname'];
             student.className = "group";
             student.id = "st"+i;
-            student.onclick = function(){ changeStudent(this.textContent) };
+            student.onclick = function(){ changeStudent('ch$'+this.textContent) };
             mainDiv.appendChild(student);
         }
 
