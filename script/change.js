@@ -2,18 +2,13 @@ var yI = document.getElementById('yIn');
 var yO = document.getElementById('yOut');
 
 function displayInfoOnLoad(){
-
     var inf = decodeURIComponent(location.search.substring(1));
-    //alert(inf);
     var ch = inf.split('$');
-    //alert(ch);
     if(ch[0] == 'ch'){
-        //CHANGE STUDENT
-        //var info = decodeURIComponent(location.search.substring(1)).split(" ");
-        var info = ch[1].split(" ");
-        var surn = info[0];
+        var ID = ch[1];
+        //console.log(ID);
         bd.transaction(function(tx){
-            var str = request.selectFromStudentBySurname.replace(/\?/g, surn);
+            var str = request.selectFromStudentByID.replace(/\?/g, ID);
            tx.executeSql(str, [], displayInfoStudent());
         });
     }
@@ -102,18 +97,13 @@ function saveStudent(){
     num = document.getElementById('numGr').value,
     yI = +document.getElementById('yIn').value,
     yO = +document.getElementById('yOut').value;
-
     var inf = decodeURIComponent(location.search.substring(1));
-    //alert(inf);
-
+    //console.log(inf);
     var ch = inf.split('$');
-    //alert(ch);
-
     if(ch[0] == 'ch'){
-        var info = ch[1].split(" ");
-        var surn = info[0];
+        var ID = ch[1];
         bd.transaction(function(tx){
-            var str = request.deleteDataFromTab.replace(/\?/g, surn);
+            var str = request.deleteDataFromTab.replace(/\?/g, ID);
             tx.executeSql(str);
             tx.executeSql(request.insertStudent, [surname, name, secondname, num, yI, yO], null, null);
         });

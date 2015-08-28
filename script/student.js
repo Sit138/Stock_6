@@ -1,4 +1,4 @@
-var bd = openDatabase("T", '0.1', 'Journal student', 20000);
+var bd = openDatabase("basa2", '0.1', 'Journal student', 20000);
 if(!bd) {
     alert("Failed to connect to database");
 }
@@ -42,7 +42,7 @@ function addDivWithGroup(){
     return function(tx, result){
         var mainDiv = document.getElementById('result');
         mainDiv.innerHTML = "";
-        var arr = [], i;
+        var arr = [], idDiv = [], i;
         for(i = 0; i < result.rows.length; i++) {
             arr[i] = result.rows.item(i)['surname'] + " " + result.rows.item(i)['name'] + " " + result.rows.item(i)['secondname'];
         }
@@ -51,8 +51,9 @@ function addDivWithGroup(){
             var student = document.createElement('div');
             student.innerHTML = arr[i];//result.rows.item(i)['surname'] + " " + result.rows.item(i)['name'] + " " + result.rows.item(i)['secondname'];
             student.className = "group";
-            student.id = "st"+i;
-            student.onclick = function(){ changeStudent('ch$'+this.textContent) };
+            student.id = result.rows.item(i)['ID'];
+            //alert(student.id);
+            student.onclick = function(){ changeStudent('ch$'+this.id) };
             mainDiv.appendChild(student);
         }
 
@@ -70,7 +71,6 @@ function d(){
 
 function deleteRow(){
     bd.transaction(function(tx){
-        tx.executeSql(request.deleteDataFromTab + "\'123\'");
+        tx.executeSql(request.deleteDataFromTabNam.replace(/\?/g));
     });
 }
-deleteRow();

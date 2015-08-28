@@ -4,7 +4,9 @@ function validateFieldAndSave(id, func){
         count = 0, i = 0,
         regNum = /^[1-9][0-9]{3}$/,
         regName = /^[А-ЯЁ][а-яё]*$/,
-        regGr = /^[а-яА-ЯёЁa-zA-Z0-9]+$/;
+        regGr = /^[а-яА-ЯёЁa-zA-Z0-9\-\/]+$/;
+    var yI = +document.getElementById('yIn').value;
+    var yO = +document.getElementById('yOut').value;
         if(id == 'newStudent'){
             var key = ['fam', 'first', 'second', 'numGr', 'yIn', 'yOut'],//ключи для регулярок
                 regExp = {//объект, котоый хранит все наши регулярки
@@ -36,8 +38,15 @@ function validateFieldAndSave(id, func){
         }
     }
     console.log(count);
-    if(count == form.elements.length){
-        func();
+
+
+    if(yI < yO){
+        if(count == form.elements.length){
+            func();
+        }
+    }
+    else{
+        alert("Год выпуска не может состояться ранее года поступления!");
     }
 }
 

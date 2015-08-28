@@ -1,7 +1,8 @@
-var bd = openDatabase("T", '0.1', 'Journal student', 20000);
+var bd = openDatabase("basa2", '0.1', 'Journal student', 20000);
 if(!bd) {
     alert("Failed to connect to database");
 }
+
 
 function addTab(){
     bd.transaction(function(tx){
@@ -66,7 +67,7 @@ function getData(){
 function displayGroup(year){
     if(year == 0){
         bd.transaction(function(tx){
-            tx.executeSql(request.selectData, [], addAllGroupAndDisplay(),null);
+            tx.executeSql(request.selectDataSort.replace(/\?/g,   'number'), [], addAllGroupAndDisplay(),null);
         });
     }
     else{
@@ -75,6 +76,12 @@ function displayGroup(year){
             tx.executeSql(str, [], addGroupAndDisplay(),null);
         });
     }
+}
+
+function sortOnDate(){
+    bd.transaction(function(tx){
+        tx.executeSql(request.selectDataSort.replace(/\?/g,   'yearIn'), [], addAllGroupAndDisplay(),null);
+    });
 }
 
 function addAllGroupAndDisplay(){
@@ -112,16 +119,16 @@ function addAllGroupAndDisplay(){
 }
 function addGroupAndDisplay() {
     return function (tx, result) {
-        var arr = [];
+        //var arr = [];
         var mainDiv = document.getElementById('result');
         mainDiv.innerHTML = "";
-        for (var i = 0; i < result.rows.length; i++) {
-            arr[i] = result.rows.item(i)['number'];
-        }
-        var res = sortGroup(arr);
-        for(i = 0; i < res.length; i++){
+        //for (var i = 0; i < result.rows.length; i++) {
+            //arr[i] = result.rows.item(i)['number'];
+        //}
+        //var res = sortGroup(arr);
+        for(var i = 0; i < result.rows.length; i++){
             var group = document.createElement('div');
-            group.innerHTML = res[i];
+            group.innerHTML = result.rows.item(i)['number'];
             group.className = "group";
             group.id = "gr" + i;
             group.onclick = function () {
