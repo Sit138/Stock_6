@@ -39,7 +39,7 @@ function displayInfoStudent(){
                     yearIn = result.rows.item(i)['yearIn'];
                     yearOut = result.rows.item(i)['yearOut'];
                 }
-                fillYear(yearIn, yearOut);
+                fillYearCh(yearIn, yearOut);
             });
         });
     }
@@ -64,6 +64,42 @@ function fillYear(yearIn, yearOut){
             optYearIn.selected = true;
         }
         if(i == yearOut){
+            optYearOut.selected = true;
+        }
+        optYearIn.textContent = i;
+        optYearOut.textContent = i;
+        yI.appendChild(optYearIn);
+        yO.appendChild(optYearOut);
+    }
+}
+
+function fillYearCh(yearIn, yearOut){
+    var i;
+    var inf = decodeURIComponent(location.search.substring(1));
+    var ch = inf.split('$');
+        var ID = ch[1];
+        //console.log(ID);
+        bd.transaction(function(tx){
+            var str = request.selectFromStudentByID.replace(/\?/g, ID);
+            tx.executeSql(str, [], function(tx, result){
+                for(var i = 0; i < result.rows.length; i++) {
+                    var yearInStud = result.rows.item(i)['yI'];
+                    var yearOutStud = result.rows.item(i)['yO'];
+                }
+                getYearForChangeStudent(yearIn, yearOut, yearInStud, yearOutStud);
+            });
+        });
+
+}
+
+function getYearForChangeStudent(yearIn, yearOut, yearInStud, yearOutStud){
+    for(i = yearIn; i <= yearOut; i++){
+        var optYearIn = document.createElement('option');
+        var optYearOut = document.createElement('option');
+        if(i == yearInStud){
+            optYearIn.selected = true;
+        }
+        if(i == yearOutStud){
             optYearOut.selected = true;
         }
         optYearIn.textContent = i;

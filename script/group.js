@@ -1,4 +1,4 @@
-var bd = openDatabase("basa2", '0.1', 'Journal student', 20000);
+var bd = openDatabase("database", '0.1', 'Journal student', 20000);
 if(!bd) {
     alert("Failed to connect to database");
 }
@@ -75,7 +75,15 @@ function displayGroup(year){
             var str = request.selectBetweenYears.replace(/\?/g,   year);//"SELECT * FROM Groups WHERE yearIn <= " + year + " AND yearOut >= " + year
             tx.executeSql(str, [], addGroupAndDisplay(),null);
         });
+        label(year);
     }
+}
+
+function label(year){
+    for(var i = new Date().getFullYear(); i > new Date().getFullYear() - 10 ; i--){
+        document.getElementById(''+i).style.background = "white";
+    }
+    document.getElementById(''+year).style.background = "#BEBEBE";
 }
 
 function sortOnDate(){
@@ -136,6 +144,7 @@ function addGroupAndDisplay() {
             };
             mainDiv.appendChild(group);
         }
+
     }
 }
 
@@ -210,6 +219,7 @@ function showYear(){
         var li = document.createElement('li');
         var div = document.createElement('div');
         div.innerHTML = i;
+        div.id = ""+i;
         div.onclick = function(){displayGroup(this.textContent)};
         li.appendChild(div);
         ul.appendChild(li);
@@ -220,7 +230,7 @@ function loadYearNewGroup(){
     var nowYear = new Date().getFullYear();
     var yI = document.getElementById('yIn');
     var yO = document.getElementById('yOut');
-    for(var i = nowYear + 2; i < nowYear + 15; i++){
+    for(var i = nowYear + 1; i < nowYear + 15; i++){
         var optYearOut = document.createElement('option');
         if(i == nowYear + 5){
             optYearOut.selected = true;
@@ -244,8 +254,8 @@ function clickYearIn(year){
     var yO = document.getElementById('yOut');
     yO.innerHTML = "";
     var yearO = +year + 5,
-        yearMin = yearO - 3,
-        yearMax = yearO + 10;
+        yearMin = yearO - 4,
+        yearMax = yearO + 5;
     for(var i = yearMin; i < yearMax; i++){
         var opt = document.createElement('option');
         if(i == yearO){

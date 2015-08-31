@@ -40,7 +40,7 @@ function validateFieldAndSave(id, func){
     console.log(count);
 
 
-    if(yI < yO){
+    if(yI <= yO){
         if(count == form.elements.length){
             func();
         }

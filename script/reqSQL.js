@@ -8,7 +8,7 @@ var request = {
     createTabStudent: "CREATE TABLE IF NOT EXISTS Students(ID INTEGER PRIMARY KEY ASC, surname, name, secondname, num, yI, yO)",
     insertStudent: "INSERT INTO Students (surname, name, secondname, num, yI, yO) values(?, ?, ?, ?, ?, ?)",
     selectStudentFromGroup: "SELECT*FROM Groups WHERE number LIKE\'?\'",
-    selectFromStudForGroup: "SELECT * FROM Students WHERE num LIKE \'group\' AND yI <= year AND yO >= year",
+    selectFromStudForGroup: "SELECT * FROM Students WHERE num LIKE \'group\' AND yI <= year AND yO >= year ORDER BY surname",
     selectFromStudentBySurname: "SELECT*FROM Students WHERE surname=\'?\'",
     selectFromStudentByID: "SELECT*FROM Students WHERE ID=\'?\'",
     deleteTab: "DROP TABLE Students",
